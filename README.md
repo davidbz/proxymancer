@@ -79,22 +79,51 @@ touch the `chrome.*` APIs, so they can be tested without a browser mock.
 
 ## Packaging
 
-`npm run package` uses `crx3` to produce a signed `proxymancer.crx`. On the
-first run it generates `key.pem`; subsequent runs reuse it so the extension ID
-stays stable. Both `key.pem` and `*.crx` are gitignored — keep `key.pem`
-private.
+`npm run package` builds and then produces two artifacts:
 
-Note that a self-signed `.crx` installs via developer mode or an enterprise
-policy. A standard, locked-down Chrome will report `CRX_REQUIRED_PROOF_MISSING`
-for any extension not distributed through the Chrome Web Store; this is expected.
-For day-to-day development, load the `dist/` directory unpacked.
+- `proxymancer.zip` — the Chrome Web Store upload (manifest at the archive root).
+- `proxymancer.crx` — a signed package for self-hosting or enterprise installs.
+
+On the first run it generates `key.pem`; subsequent runs reuse it so the
+extension ID stays stable. `key.pem`, `*.crx`, and `*.zip` are gitignored — keep
+`key.pem` private.
+
+A self-signed `.crx` installs only via developer mode or an enterprise policy. A
+standard, locked-down Chrome will report `CRX_REQUIRED_PROOF_MISSING` for any
+extension not distributed through the Chrome Web Store; this is expected. For
+day-to-day development, load the `dist/` directory unpacked.
 
 ## Icons
 
-Icons are intentionally omitted; Chrome shows a default action icon and the
-extension is fully functional without them. To add branding, place PNG files in
-`src/icons/` (the build copies that directory automatically) and add matching
-`icons` and `action.default_icon` entries to `src/manifest.json`.
+Placeholder icons live in `src/icons/` (16/32/48/128 px) and are referenced by
+the manifest's `icons` and `action.default_icon`. They are plain brand-colored
+placeholders — replace them with real artwork before publishing. The build
+copies `src/icons/` into `dist/` automatically.
+
+## Publishing to the Chrome Web Store
+
+See [Chrome's prepare guide](https://developer.chrome.com/docs/webstore/prepare).
+Ready in this repo:
+
+- Manifest V3 with `name`, `version`, `description` (81 chars, under the 132
+  limit), and `icons` (128 px included) — no comments in the JSON.
+- `npm run package` emits a store-ready `proxymancer.zip` with the manifest at
+  the root.
+- Single, narrow purpose and a minimal permission set (`proxy`, `storage`; no
+  host permissions).
+
+Still required before submitting (done in the Web Store dashboard, not this
+repo):
+
+- A Chrome Web Store developer account and a one-time registration fee.
+- Real 128x128 store icon and artwork (replace the placeholders).
+- At least one screenshot (1280x800 or 640x400; up to 5).
+- A small promo tile (440x280). Marquee tile (1400x560) is optional.
+- Store listing text: detailed description and a category.
+- Privacy disclosures: a single-purpose description, a justification for the
+  `proxy` permission, and data-use declarations (this extension collects and
+  transmits no user data). A privacy policy is provided in [PRIVACY.md](PRIVACY.md);
+  host it at a public URL and link it in the dashboard.
 
 ## Toolchain
 
