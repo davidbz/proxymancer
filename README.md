@@ -14,7 +14,10 @@ The entire extension is a hand-written manifest, a service worker, and a popup.
 - Configure a forward proxy: scheme (`http` / `https` / `socks4` / `socks5`),
   host, and port.
 - Maintain a bypass list (one entry per line) for hosts that should skip the
-  proxy.
+  proxy. A bare domain like `whatsapp.com` is stored as a subdomain-suffix match
+  `*.whatsapp.com` (so `foo.whatsapp.com` bypasses, but `evilwhatsapp.com` does
+  not). Entries that are already wildcarded (`*.internal`, `.foo.com`), single
+  labels (`localhost`), or IP/CIDR literals are left as-is.
 - Enable or disable with a single toggle. When disabled, Proxymancer applies
   `system` mode so the browser follows the OS proxy configuration.
 - Persist settings via `chrome.storage.sync`; the service worker re-applies them

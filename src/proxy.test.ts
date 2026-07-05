@@ -43,4 +43,10 @@ describe("parseBypassList", () => {
   it("returns an empty array for blank input", () => {
     expect(parseBypassList("   \n  ")).toEqual([]);
   });
+
+  it("prefixes bare domains with *. but leaves wildcards, IPs, and single labels", () => {
+    expect(
+      parseBypassList("whatsapp.com, *.internal, .foo.com, localhost, 127.0.0.1, 10.0.0.0/8"),
+    ).toEqual(["*.whatsapp.com", "*.internal", ".foo.com", "localhost", "127.0.0.1", "10.0.0.0/8"]);
+  });
 });
