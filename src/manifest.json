@@ -1,0 +1,16 @@
+{
+  "manifest_version": 3,
+  "name": "Proxymancer",
+  "version": "0.1.0",
+  "description": "Minimal forward-proxy switcher: set proxy address + bypass list from the toolbar.",
+  "permissions": ["proxy", "storage"],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "action": {
+    "default_title": "Proxymancer",
+    "default_popup": "popup.html"
+  },
+  "minimum_chrome_version": "120"
+}
