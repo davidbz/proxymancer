@@ -1,6 +1,6 @@
 {
   "name": "proxymancer",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Minimal Chrome (MV3) forward-proxy switcher — address + bypass list from the toolbar.",
   "private": true,
   "type": "module",
