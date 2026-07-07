@@ -131,10 +131,11 @@ repo):
 ## Toolchain
 
 - TypeScript compiled and bundled by esbuild
-- Biome for linting and formatting (one tool)
+- Biome for linting and formatting
 - Vitest for unit tests
 - crx3 for packaging
-- Zero runtime dependencies (all tooling is dev-only)
+
+Zero runtime dependencies (all tooling is dev-only)
 
 ## License
 
