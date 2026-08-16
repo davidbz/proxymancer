@@ -16,7 +16,7 @@
     "clean": "rm -rf dist proxymancer.crx"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.5.7",
+    "@biomejs/biome": "^2.5.8",
     "@types/chrome": "^0.2.5",
     "crx3": "^2.0.0",
     "esbuild": "^0.28.1",
